@@ -11,4 +11,4 @@ cd src && \
     zip -r ../${NAME}.zip . && \
     cd .. && \
     aws lambda create-function --function-name ${NAME} --zip-file fileb://${NAME}.zip --handler index.handler --runtime nodejs10.x --role $1 && \
-    aws lambda create-alias --function-name ${NAME} --name service --function-version $LATEST
+    aws lambda create-alias --function-name ${NAME} --name service --function-version \$LATEST
