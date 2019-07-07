@@ -14,5 +14,5 @@ cd src && \
     zip -r ../${NAME}.zip . -x node_modules\* && \
     cd .. && \
     LAYER_VERSION=$(aws lambda publish-layer-version --layer-name ${NAME}-modules --zip-file fileb://${NAME}-modules.zip | jq -r .LayerVersionArn) && \
-    aws lambda create-function --function-name ${NAME} --zip-file fileb://${NAME}.zip --handler index.handler --runtime nodejs10.x --role $1 --timeout 30 --layers ${LAYER_VERSION} && \
+    aws lambda create-function --function-name ${NAME} --zip-file fileb://${NAME}.zip --handler index.handler --runtime nodejs10.x --role $1 --timeout 30 --layers ${LAYER_VERSION} --environment Variables="{NODE_PATH=/opt/node_modules}" && \
     aws lambda create-alias --function-name ${NAME} --name service --function-version \$LATEST
